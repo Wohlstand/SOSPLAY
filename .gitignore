@@ -1,0 +1,6 @@
+sosplay.exe
+*.o
+./hmimdrv.386
+dos4gw.exe
+out/
+*.user*
