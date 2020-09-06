@@ -28,6 +28,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <process.h>
 
 #include <conio.h>
 
@@ -117,6 +118,7 @@ int main(int argc, char **argv)
     const char *bankMelodic = "rickmelo.bnk";
     const char *bankDrum = "rickdrum.bnk";
     const char *songPath = "maz.hmi";
+    const char *songPathOrig = NULL;
 
     printf("\nSOSPLAY version %s  Copyright (C) 2020 Vitaly Novichkov \"Wohlstand\"\n", VERSION);
     printf("-------------------------------------------------------------------------------\n\n");
@@ -141,6 +143,13 @@ int main(int argc, char **argv)
     if((err = sosTIMERInitSystem(_TIMER_DOS_RATE, _SOS_DEBUG_NORMAL)))
         if(err != _ERR_INITIALIZED)
             return 1;
+
+    if(endsWith(songPath, ".mid"))
+    {
+        songPathOrig = songPath;
+        spawnlp(P_WAIT, "midi2hmi.exe", "midi2hmi.exe", songPath, "tmp.hmi", NULL);
+        songPath = "tmp.hmi";
+    }
 
     sosMIDIInitSystem(_NULL, _SOS_DEBUG_NORMAL);
 
@@ -285,6 +294,9 @@ int main(int argc, char **argv)
     sosMIDIUnInitSystem();
 
     sosTIMERUnInitSystem(0);
+
+    if(songPathOrig)
+        remove(songPath);
 
     printf("Bye!\n");
 
