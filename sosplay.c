@@ -101,6 +101,7 @@ static W32 hmiBranchCallback( HANDLE hSong, BYTE bTrack, BYTE bID )
 int main(int argc, char **argv)
 {
     char key;
+    int ret;
     int keepWork = 1;
 
     _SOS_MIDI_DRIVER        sMIDIDriver;               // midi driver structure
@@ -147,7 +148,13 @@ int main(int argc, char **argv)
     if(endsWith(songPath, ".mid"))
     {
         songPathOrig = songPath;
-        spawnlp(P_WAIT, "midi2hmi.exe", "midi2hmi.exe", songPath, "tmp.hmi", NULL);
+        ret = spawnlp(P_WAIT, "midi2hmi.exe", "midi2hmi.exe", songPath, "tmp.hmi", "/O", NULL);
+        printf("return code %d\n", ret);
+        if(ret != 0 && ret != 18)
+        {
+            printf("Can't play song, because of MIDI2HMI failure\n");
+            return 1;
+        }
         songPath = "tmp.hmi";
     }
 
@@ -231,7 +238,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    sSong  =  ( _SOS_MIDI_SONG * )pSong;
+    sSong = (_SOS_MIDI_SONG *)pSong;
 
     memset(sSong, 0, sizeof(_SOS_MIDI_SONG));
 
@@ -250,7 +257,10 @@ int main(int argc, char **argv)
     sosMIDIStartSong(hMIDISong);
 
     printf("----------------------\n");
-    printf("Song: %s\n", songPath);
+    if(songPathOrig)
+        printf("Song: %s\n", songPathOrig);
+    else
+        printf("Song: %s\n", songPath);
     printf("Melodic bank: %s\n", bankMelodic);
     printf("Drum bank: %s\n", bankDrum);
     printf("----------------------\n");
