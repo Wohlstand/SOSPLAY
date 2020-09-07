@@ -28,9 +28,9 @@ deploy:
 # SOSPLAY executable
 #
 
-sosplay.exe: dos4gw.exe hmimdrv.386
+sosplay.exe: dos4gw.exe hmimdrv.386 sosplay.c
 	$(WCC386) $(CFLAGS) -dDPMI sosplay.c
-	$(WLINK) $(LFLAGS) n sosplay libp sos/lib libr sosw1cr f sosplay system dos4g
+	$(WLINK) $(LFLAGS) n sosplay d all libp sos/lib libr sosw1cr f sosplay system dos4g
 
 #
 # DOS/4GW executable
