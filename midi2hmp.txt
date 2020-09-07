@@ -1,0 +1,13 @@
+This file (midi2hmp.exe) converts standard MIDI files to *.hmp files. To convert your midi files, type as follows at a dos prompt:
+
+MIDI2HMP hello1.mid hello1.hmp
+
+to use these files in Frontier : First Encounters, call your .hmp file the same as one of the FFE music files (e.g. Bluedan.hmp) and copy it over the original file in the "music" subdirectory. BUT REMEMBER TO COPY YOUR ORIGINAL MUSIC TO SOMEWHERE ELSE FIRST!!!
+
+A final warning: FFE doesn't accept .hmp files made from many types of .mid files. This means that a large proportion of your MIDI files, even after converting, won't work with FFE, and will make it crash. This might depend on what version you have - I use version 1.3.
+
+Kevin Prest
+http://welcome.to/ironfrost
+
+MIDI2HMP is provided with permission from HMI Technologies Inc
+http://www.humanmachine.com/
