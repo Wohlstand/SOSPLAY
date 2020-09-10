@@ -40,6 +40,13 @@
 #ifndef  _SOSDEFS_DEFINED
 #define  _SOSDEFS_DEFINED
 
+#ifdef QT_IDE // Костыль
+#define near
+#define far
+#define huge
+#define _huge
+#endif
+
 #undef   _TRUE
 #undef   _FALSE
 #undef   _NULL

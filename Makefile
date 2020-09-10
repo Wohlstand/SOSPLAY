@@ -2,9 +2,10 @@ WCC386=wcc386
 WLINK=wlink
 
 CFLAGS=-q -i=sos/include -bt=dos4g
+CFLAGS3=-q -i=sos3/include -bt=dos4g
 LFLAGS=option quiet
 
-all: sosplay.exe
+all: sosplay.exe sosplay3.exe
 
 clean:
 	rm -f sosplay.o
@@ -31,6 +32,10 @@ deploy:
 sosplay.exe: dos4gw.exe hmimdrv.386 sosplay.c
 	$(WCC386) $(CFLAGS) -dDPMI sosplay.c
 	$(WLINK) $(LFLAGS) n sosplay d all libp sos/lib libr sosw1cr f sosplay system dos4g
+
+sosplay3.exe: dos4gw.exe hmimdrv.386 sosplay3.c
+	$(WCC386) $(CFLAGS3) -dDPMI sosplay3.c
+	$(WLINK) $(LFLAGS) n sosplay3 d all libp sos3/lib libr sosdw1cr,sosmw1cr f sosplay system dos4g
 
 #
 # DOS/4GW executable
